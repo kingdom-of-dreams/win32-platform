@@ -1,5 +1,5 @@
 /*
-   time.h -- Hyperdrive's time implementation for Windows platform.
+   time.hpp -- Hyperdrive's time implementation for Windows platform.
 
    Copyright 2025 by Sylvain Nieuwlandt (for Kingdom of Dreams)
 
@@ -15,22 +15,20 @@
    See the License for the specific language governing permissions and
    limitations under the License.
 */
-#include "platform/time.h"
+#include <platform/time.hpp>
 
-#include "error.h"
+#include "constants.hpp"
 #include <Windows.h>
 
-int hd_time_now(hd_time* out) {
-   if (out == NULL) return HD_INVALID_ARG;
-
+HD::Result HD::Platform::Time::Now() {
    SYSTEMTIME now = {0};
    GetLocalTime(&now);
-   out->year         = now.wYear;
-   out->month        = now.wMonth;
-   out->day          = now.wDay;
-   out->hours        = now.wHour;
-   out->minutes      = now.wMinute;
-   out->seconds      = now.wSecond;
-   out->milliseconds = now.wMilliseconds;
-   return HD_OK;
+   this->year         = now.wYear;
+   this->month        = now.wMonth;
+   this->day          = now.wDay;
+   this->hours        = now.wHour;
+   this->minutes      = now.wMinute;
+   this->seconds      = now.wSecond;
+   this->milliseconds = now.wMilliseconds;
+   return HD::Codes::OK;
 }

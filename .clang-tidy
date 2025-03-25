@@ -1,2 +1,2 @@
-Checks: "-misc-include-cleaner"
+Checks: "-misc-include-cleaner, -performance-no-int-to-ptr, -clang-diagnostic-*"
 InheritParentConfig: true

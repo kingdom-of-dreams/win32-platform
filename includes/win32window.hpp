@@ -4,24 +4,27 @@
 #include <Windows.h>
 
 #define NATIVE_PLATFORM_WINDOW_TYPE HWND
+#include <logger.hpp>
 #include <platform/window.hpp>
 
 namespace HD::Win32 {
    class Window : public HD::Platform::Window {
       public:
-         Window()          = default;
+         Window() : log(HD::Logger("Win32Window")) {};
          virtual ~Window() = default;
 
-         HD::Result Initialize(const HD::String& title, int width, int height);
+         HD::Result Initialize(const HD::String& title, int width, int height) override;
 
-         void Show();
-         void PeekEvent();
+         void Show() override;
+         void PeekEvent() override;
 
-         int GetWidth() const;
+         int GetWidth() const override;
 
-         int GetHeight() const;
+         int GetHeight() const override;
 
          friend LRESULT CALLBACK windowProcedure(HWND handle, UINT message, WPARAM wParam, LPARAM lParam);
+      private:
+         const HD::Logger log;
    };
 }; // namespace HD::Win32
 

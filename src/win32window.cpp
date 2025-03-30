@@ -31,10 +31,12 @@ HD::Result HD::Win32::Window::Initialize(const HD::String& title, int width, int
    HD_ASSERT_POSITIVE(width);
    HD_ASSERT_POSITIVE(height);
 
+   this->log.Info("Initializing the window");
    const wchar_t* className      = L"HyperdriveWin32Window";
    HINSTANCE      currentProcess = GetModuleHandle(nullptr);
    HD_ASSERT_NOT_NULL(currentProcess);
    if (!windowClassRegistered) {
+      this->log.Info("Register global window class");
       // Register window class
       const WNDCLASSEX windowClass = {
           .cbSize        = sizeof(WNDCLASSEX),
@@ -65,6 +67,7 @@ HD::Result HD::Win32::Window::Initialize(const HD::String& title, int width, int
 void HD::Win32::Window::Show() {
    ShowWindow(this->handle, SW_SHOW);
    this->shown = true;
+   this->log.Info("Showing the window (size %dx%d)", this->GetWidth(), this->GetHeight());
 }
 
 void HD::Win32::Window::PeekEvent() {
